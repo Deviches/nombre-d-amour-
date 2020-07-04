@@ -1,0 +1,60 @@
+import algorea.Scanner;
+import java.util.ArrayList;
+public class algorea{
+	public static int convertirNom(String nom){
+		int somme = 0; 
+		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	    int[] lettreConverti = new int[nom.length()];
+		for(int i = 0; i <= nom.length() - 1; i++){
+			char lettre = nom.charAt(i);
+			lettreConverti[i] = alphabet.indexOf(lettre);
+		}
+		for(int i = 0 ; i <= nom.length() - 1; i++ ){
+			somme += lettreConverti[i];
+		}
+		return somme;
+	}
+	public static int sommeDesChiffres(int nombre){
+		int somme = 0;
+		ArrayList<Integer> chiffre = new ArrayList<Integer>();
+		if (nombre <= 9 && 0 <= nombre){
+			somme = nombre;
+		}
+		else{
+			int quotient = 10;
+			while(quotient > 9 ){
+				quotient = nombre / 10 ;
+				chiffre.add(nombre % 10);
+				if(quotient <= 9){
+					chiffre.add(quotient);
+				}
+			}
+			for (int i = 0 ; i <= chiffre.size() - 1; i++ ){
+				somme += chiffre.get(i);
+			}
+		}
+		return somme;
+		}
+	
+	public static int positionEspace(String chaine){
+		int position = chaine.indexOf(" ");
+		return position;
+	}
+	
+	public static void main(String[] args){
+		Scanner entrée = new Scanner(System.in);
+		String nom1Et2 = entrée.nextLine();
+		entrée.close();
+		String nom1 = nom1Et2.substring(0, positionEspace(nom1Et2));
+		String nom2 = nom1Et2.substring(positionEspace(nom1Et2)+1, nom1Et2.length());
+		int nbAmour1 = convertirNom(nom1);
+		int nbAmour2 = convertirNom(nom2);
+		while(nbAmour1 > 9){
+			nbAmour1 = sommeDesChiffres(nbAmour1); 
+			}
+		while(nbAmour2 > 9){
+			nbAmour2 = sommeDesChiffres(nbAmour2);
+		}
+		System.out.println(nbAmour1+" "+nbAmour2);
+	}
+} 
